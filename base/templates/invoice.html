@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="invoice">
+  <h2>Invoice #{{ order.id }}</h2>
+  <p>
+    <strong>Restaurant:</strong> {{ order.restaurant.name }}<br>
+    <strong>Address:</strong> {{ order.restaurant.address }}<br>
+    <strong>Date:</strong> {{ order.order_date|date:"M d, Y - h:i A" }}
+  </p>
+
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Bottle</th>
+        <th>Unit Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ order.bottle }}</td>
+        <td>{{ order.bottle.price }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.subtotal }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
+</div>
+{% endblock %}

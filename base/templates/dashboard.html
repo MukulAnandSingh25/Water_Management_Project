@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container">
+  <h2>Dashboard</h2>
+
+  <div class="card">
+    <p><strong>Total Orders:</strong> {{ total_orders }}</p>
+    <p><strong>Delivered:</strong> {{ delivered }} &nbsp;|&nbsp; <strong>Pending:</strong> {{ pending }}</p>
+  </div>
+
+  <h3>Recent Orders</h3>
+  <table>
+    <thead><tr><th>#</th><th>Size</th><th>Qty</th><th>Date</th><th>Status</th><th>Invoice</th></tr></thead>
+    <tbody>
+      {% for o in orders %}
+      <tr>
+        <td>{{ o.id }}</td>
+        <td>{{ o.bottle }}</td>
+        <td>{{ o.quantity }}</td>
+        <td>{{ o.order_date|date:"M d, Y - h:i A" }}</td>
+        <td>
+          {% if o.status == 'PENDING' %}<span class="badge badge-pending">Pending</span>
+          {% elif o.status == 'PROCESSING' %}<span class="badge badge-processing">Processing</span>
+          {% elif o.status == 'OUT_FOR_DELIVERY' %}<span class="badge badge-processing">Out for Delivery</span>
+          {% elif o.status == 'DELIVERED' %}<span class="badge badge-delivered">Delivered</span>
+          {% else %}<span class="badge badge-cancelled">Cancelled</span>{% endif %}
+        </td>
+        <td><a class="btn" href="{% url 'order_invoice' o.id %}">PDF</a></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">No orders yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Notifications</h3>
+  <ul>
+    {% for n in notifications %}
+      <li>{{ n.created_at|date:"M d, h:i A" }} — {{ n.message }}</li>
+    {% empty %}
+      <li>No notifications</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
