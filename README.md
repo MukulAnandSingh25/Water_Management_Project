@@ -39,10 +39,10 @@ This system allows users to place orders and download invoices, while admins can
 ![Login](screenshots/login.png)
 
 ###  Place Order
-![Place Order](screenshots/order.png)
+![Place_Order](screenshots/order.png)
 
 ###  My Orders
-![My Orders](screenshots/myorders.png)
+![My_Orders](screenshots/myorders.png)
 
 ###  Invoice
 ![Invoice](screenshots/invoice.png)
